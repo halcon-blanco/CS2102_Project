@@ -8,7 +8,7 @@ declare
     cc_exist integer;
 begin 
     cc_exist := -1;
-    select 1 into cc_exist from Owns where cust_id = NEW.cust_id;
+    select 1 into cc_exist from Credit_Cards where cust_id = NEW.cust_id;
     if (cc_exist is NULL) then
         raise notice 'The customer % does not have a credit card.', NEW.name;
     end if;
@@ -23,6 +23,7 @@ deferrable initially deferred for each row execute function cust_cc_totalpart();
 /**
 * register_trigger checks if the registration is valid (i.e. customer can only register for at most one session from a course
 * before its registration deadline AND course offering is available).
+* Should this be in the register_session routine instead?
 * TODO INCOMPLETE 
 **/
 create or replace function register_check() returns trigger as $$
