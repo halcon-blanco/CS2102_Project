@@ -10,7 +10,7 @@ begin
     cc_exist := -1;
     select 1 into cc_exist from Credit_Cards where cust_id = NEW.cust_id;
     if (cc_exist is NULL) then
-        raise notice 'The customer % does not have a credit card.', NEW.name;
+        raise exception 'The customer % does not have a credit card.', NEW.name;
     end if;
     return null;
 end;
