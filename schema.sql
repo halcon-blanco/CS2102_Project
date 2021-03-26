@@ -3,7 +3,7 @@
 **/
 create table Customers (
     cust_id serial primary key,
-    name varchar(100) not null,
+    name varchar(100) unique not null,
     address text,
     phone varchar(100),
     email varchar(100)
@@ -20,9 +20,8 @@ create table Credit_Cards (
     expiry_date date not null,
     cust_id integer not null, 
     from_date date not null, /** when the cc is owned**/
-    foreign key (cust_id) references Customers(cust_id)
+    foreign key (cust_id) references Customers(cust_id) deferrable initially deferred
 );
-
 
 /**
 * Registers table stores the sessions that the customer registered for via CC-payment directly.
